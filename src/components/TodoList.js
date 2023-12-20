@@ -5,24 +5,27 @@ import "./TodoList.scss";
 import { List } from "../../node_modules/react-virtualized/dist/commonjs/index";
 
 const TodoList = ({ todos, onRemove, onToggle }) => {
-  const rowRenderer = useCallback(({ index, key, style }) => {
-    const todo = todos[index];
-    console.log("todo:", todo);
-    return (
-      <TodoListItem
-        todos={todos}
-        key={key}
-        onRemove={onRemove}
-        onToggle={onToggle}
-        style={style}
-      />
-    );
-  }, []);
+  const rowRenderer = useCallback(
+    ({ index, key, style }) => {
+      const todo = todos[index];
+      //console.log("todo:", todo);
+      return (
+        <TodoListItem
+          todo={todo}
+          key={key}
+          onRemove={onRemove}
+          onToggle={onToggle}
+          style={style}
+        />
+      );
+    },
+    [todos, onRemove, onToggle]
+  );
 
   return (
     <List
       classNeme="TodoList"
-      witdth={512} //전체크기
+      width={512} //전체크기
       height={513} //전체높이
       rowCount={todos.length} //항목개수
       rowHeight={57} //항목높이
